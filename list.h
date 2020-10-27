@@ -25,7 +25,6 @@ void push( struct Performance * performance, struct Node ** list_ptr, void * src
 void pop( struct Performance * performance, struct Node ** list_ptr, void * dest, unsigned int width );
 struct Node ** next( struct Performance * performance, struct Node ** list_ptr );
 int isEmpty( struct Performance * performance, struct Node ** list_ptr );
-void copy_data( void * source, void * destination, int width );
 struct Performance * newPerformance();
 
 // derived functions

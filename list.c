@@ -21,19 +21,6 @@ struct Performance * newPerformance(){
   
 }
 
-// support function to copy data to the location specified 
-void copy_data( void * source, void * destination, int width ){
-  int i;
-  char * src = src;
-  char * dest = destination;
-
-  for( i = 0; i < width; i++ ){
-    *dest = *src;
-    src++;
-    dest++;
-  }
-}
-
 
 // push a new node to the front of the linked list
 void push( struct Performance * performance, struct Node ** list_ptr, void * src, unsigned int width ){
@@ -51,7 +38,7 @@ void push( struct Performance * performance, struct Node ** list_ptr, void * src
     exit(0);
   }
   
-  copy_data( src, new_node->data, width );
+  memcpy( new_node->data, src, width );
 
   new_node->next = *list_ptr;
   *list_ptr = new_node;
@@ -67,7 +54,7 @@ void readHead( struct Performance * performance, struct Node ** list_ptr, void *
     fprintf( stderr, "readHead - ERROR, list is empty" );
     exit(0);
   }
-  copy_data( (*list_ptr)->data, dest, width);
+  memcpy( dest, (*list_ptr)->data, width);
 
   performance->reads++;
 }
@@ -81,7 +68,7 @@ void pop( struct Performance * performance, struct Node ** list_ptr, void * dest
   }
   struct Node * old_head = *list_ptr;
 
-  copy_data( (*list_ptr)->data, dest, width );
+  memcpy( dest, (*list_ptr)->data, width);
 
   *list_ptr = old_head->next;
 
@@ -189,7 +176,7 @@ void deleteItem( struct Performance * performance, struct Node ** list_ptr, unsi
 int findItem( struct Performance * performance, struct Node ** list_ptr, int (*compar)(const void *, const void * ), void * target, unsigned int width ){
   int i = 0;
   
-  void * data = malloc( sizeof( width ) );
+  void * data = malloc( width );
 
   while( isEmpty( performance, list_ptr ) != 1 ){
 
